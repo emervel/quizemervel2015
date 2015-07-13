@@ -11,3 +11,8 @@ exports.answer = function(req, res) {
 		res.render('quizes/answer',{respuesta: 'Incorrecto'});
 	}	
 };
+
+//GET /quizes/authors
+exports.authors = function(req, res) {
+	res.render('quizes/authors',{autor: 'Eduardo Merchan Velasco'});
+};
