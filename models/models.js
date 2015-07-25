@@ -34,9 +34,9 @@ exports.Quiz = Quiz;
 sequelize.sync().success(function(){
 	//success ejecuta el manejador una vez cread la tabla
 	Quiz.count().success(function(count){
-		if(count === 0) {
-			Quiz.create({pregunta: 'Capital de Italia',
-						respuesta: 'Roma'
+		if(count === 1) {
+			Quiz.create({pregunta: 'Capital de Francia',
+						respuesta: 'Paris'
 						});
 			Quiz.create({pregunta: 'Capital de Portugal',
 						respuesta: 'Lisboa'
