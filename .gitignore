@@ -45,3 +45,4 @@ Temporary Items
 # node module files to ignore
 node_modules
 npm-debug.log
+quiz.sqlite
