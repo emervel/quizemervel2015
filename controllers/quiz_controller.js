@@ -1,5 +1,5 @@
 var models = require('../models/models.js');
-
+//Con esta version ha funcionado, actualizo para dejarlo como version tema 8
 //Autoload - factoriza el codigo si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
 	models.Quiz.find(quizId).then(
