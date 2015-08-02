@@ -5,17 +5,54 @@
 		<td><input type="submit" value="Buscar"></td>
 	</tr>
 	</form>
-	<% var i; for (i=0;i< quizes.length;i++) {%>
-		<tr><td><a href="quizes/<%=quizes[i].id%>"><%=quizes[i].pregunta%></a></td>
-		<td><a href="quizes/<%=quizes[i].id%>/edit"><button>Editar</button></a></td>
+	<tr>
 		<td>
-			<form method="post" action="quizes/<%=quizes[i].id%>?_method=delete">
-				<button type="submit" onClick="return confirm('Borrar: <%=quizes[i].pregunta%>')">
-					Borrar
-				</button>
-			</form>
+			<select id="nombreTema" onchange="seleccionarTema(this.value)">
+			  <option value="todos">Todos</option>
+			  <option value="otro">Otro</option>
+			  <option value="humanidades">Humanidades</option>
+			  <option value="ocio">Ocio</option>
+			  <option value="ciencia">Ciencia</option>
+			  <option value="tecnologia">Tecnología</option>
+			</select>
 		</td>
-		</tr>
+		<td>Seleccione un Tema</td>		
+	</tr>
+	<div id="preguntas">
+	<% var i; for (i=0;i< quizes.length;i++) {%>
+		<!--<div id="quizes[i].tema">-->
+		<tr name="<%=quizes[i].tema%>" >
+			<td><a href="quizes/<%=quizes[i].id%>"><%=quizes[i].pregunta%></a></td>
+			<td><a href="quizes/<%=quizes[i].id%>/edit"><button>Editar</button></a></td>
+			<td>
+				<form method="post" action="quizes/<%=quizes[i].id%>?_method=delete">
+					<button type="submit" onClick="return confirm('Borrar: <%=quizes[i].pregunta%>')">
+						Borrar
+					</button>
+				</form>
+			</td>
+		</tr>		
 	<% } %>
+	<tr  id='listaVacia' style='display:none'><td colspan='3'><span id='ErrorMsgs'>No hay preguntas para el tema seleccionado</span><td></tr>
+	</div>
 	</table><p>
 	<a href="/quizes/new"><button type="button">Crear Pregunta</button></a>
+	<script>
+		function seleccionarTema(temaSeleccionado){
+			var opcionesEnSelect = document.getElementById('nombreTema');
+			var listaVacia = '';
+			for (var i = 0; i < opcionesEnSelect.length; i++) {
+				var estilo='';
+				if ('todos' != temaSeleccionado && opcionesEnSelect[i].value != temaSeleccionado) 
+					estilo='none';			
+				var elementos = document.getElementsByName(opcionesEnSelect[i].value);
+				for (var j = 0; j < elementos.length; j++) {
+					elementos[j].style.display=estilo;
+					if(estilo=='') {
+						listaVacia='none';
+					}
+				}
+			}
+			document.getElementById('listaVacia').style.display=listaVacia;			
+		}
+	</script>
