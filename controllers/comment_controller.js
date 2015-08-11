@@ -7,7 +7,6 @@ exports.new = function(req, res) {
 
 //POST /quizes/:quizId/comments
 exports.create = function(req, res) {
-	console.log(req.body.comment.texto);
 	var comment = models.Comment.build(
 	{texto: req.body.comment.texto,
 	 QuizId: req.params.quizId
@@ -15,7 +14,7 @@ exports.create = function(req, res) {
 	comment.validate().then(	
 		function(err) {
 			if (err) {
-				res.render('comments/new.ejs', {comment: comment, errors: err.errors});
+				res.render('comments/new.ejs', {comment: comment, quizid : req.params.quizId, errors: err.errors});
 			} else {
 				comment.save().then(
 					function(){
