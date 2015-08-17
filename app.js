@@ -38,6 +38,23 @@ app.use(function(req, res, next) {
 	next();
 });
 
+// Autologout
+app.use( function(req, res, next) {
+  var ahora = new Date().getTime();                           
+  req.session.timeOutSeg = 3 ;
+  if ( req.session.ultimaTransaccion && req.session.user) {   
+      if ((ahora-req.session.ultimaTransaccion)> req.session.timeOutSeg*1000){
+          delete req.session.user;
+		  req.session.errors=[{"message": 'La session ha caducado'}];			
+          res.redirect("/login");
+      }
+
+  }
+  req.session.ultimaTransaccion = ahora;
+  res.locals.session = req.session;
+  next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -46,6 +63,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 
 // error handlers
 
