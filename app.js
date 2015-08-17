@@ -41,7 +41,7 @@ app.use(function(req, res, next) {
 // Autologout
 app.use( function(req, res, next) {
   var ahora = new Date().getTime();                           
-  req.session.timeOutSeg = 3 ;
+  req.session.timeOutSeg = 60 ;
   if ( req.session.ultimaTransaccion && req.session.user) {   
       if ((ahora-req.session.ultimaTransaccion)> req.session.timeOutSeg*1000){
           delete req.session.user;
